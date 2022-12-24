@@ -13,6 +13,6 @@ interface MoviesApi {
     @GET("movie/{movie_id}?")
     fun getDetailMovies(@Path("movie_id") idmovie:String,@QueryMap params : Map<String,String> ) : Call<DetailMovieModel>
     @GET("search/movie?")
-    fun getSearchMovie( @Path("movie_is") movie_id : String) : Call<DetailMovieModel>
+    fun getSearchMovie( @QueryMap params : Map<String,String>) : Call<Movies>
 //    api_key={api_key}&query=Jack+Reacher
 }

@@ -46,6 +46,38 @@ class MovieViewModel : ViewModel() {
             }
         })
     }
+    fun getsearch(Search:String) {
+        val params: MutableMap<String, String> = HashMap()
+        params["api_key"] = "7916ace8a965a1c3413cd5231af30364"
+        params["language"] = "en-US"
+        params["query"] = Search.toString()
+        RetrofitInstance.api.getSearchMovie(params).enqueue(object  :
+            Callback<Movies> {
+            override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+                if (response.body()!=null){
+                    if(movieLiveData!=null)
+                    {
+                        var m =movieLiveData.value
+
+                        movieLiveData.value = response.body()!!.results
+
+                    }
+                    else{
+
+                        movieLiveData.value = response.body()!!.results
+
+                    }
+
+                }
+                else{
+                    return
+                }
+            }
+            override fun onFailure(call: Call<Movies>, t: Throwable) {
+                Log.d("TAG", t.message.toString())
+            }
+        })
+    }
     fun observeMovieLiveData() : LiveData<List<Result>> {
         return movieLiveData
     }

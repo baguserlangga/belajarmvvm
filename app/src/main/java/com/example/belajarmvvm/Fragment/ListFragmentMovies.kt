@@ -36,6 +36,8 @@ class ListFragmentMovies : Fragment() {
     var moviesnih :ArrayList<Result> =ArrayList<Result>()
     private lateinit var lm : LinearLayoutManager
     var page = 1
+    var search = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -51,30 +53,48 @@ class ListFragmentMovies : Fragment() {
         binding = FragmentListMoviesBinding.inflate(layoutInflater)
         lm  = LinearLayoutManager(requireContext())
         prepareRecyclerView()
+
         viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
-        viewModel.getPopularMovies(page)
-        binding.rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if(dy>0)
-                {
-                    var vitem = lm.childCount
-                    var litem = lm.findFirstCompletelyVisibleItemPosition()
-                    var count = movieAdapter.itemCount
-                    if(vitem+litem >=count)
+        if(search==false)
+        {
+            viewModel.getPopularMovies(page)
+            binding.rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if(dy>0)
                     {
-                        loadmore()
+                        var vitem = lm.childCount
+                        var litem = lm.findFirstCompletelyVisibleItemPosition()
+                        var count = movieAdapter.itemCount
+                        if(vitem+litem >=count)
+                        {
+                            loadmore()
+                        }
+                        Log.e("inivitem", "onScrolled: " + vitem.toString() )
+
                     }
-                    Log.e("inivitem", "onScrolled: " + vitem.toString() )
 
                 }
+            })
+            viewModel.observeMovieLiveData().observe(requireActivity(), Observer { movieList ->
+                moviesnih.addAll(movieList)
+                movieAdapter.setMovieList(moviesnih)
+            })
+        }
 
-            }
-        })
-        viewModel.observeMovieLiveData().observe(requireActivity(), Observer { movieList ->
-            moviesnih.addAll(movieList)
-            movieAdapter.setMovieList(moviesnih)
-        })
+        else if(search==true)
+        {
+            viewModel.observeMovieLiveData().observe(requireActivity(), Observer { movieList ->
+                moviesnih.addAll(movieList)
+                movieAdapter.setMovieList(moviesnih)
+            })
+        }
+        binding.btnSearch.setOnClickListener {
+            search=true
+            viewModel.getsearch(binding.editTextTextPersonName.text.toString())
+            clear()
+        }
+
          return binding.root
     }
 
@@ -122,5 +142,10 @@ class ListFragmentMovies : Fragment() {
                 })
             },5000
         )
+    }
+    fun clear()
+    {
+        moviesnih.clear()
+
     }
 }

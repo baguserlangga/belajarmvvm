@@ -31,24 +31,7 @@ class MovieDetailViewModel : ViewModel() {
                 if (response.body()!=null){
                     if(movieLiveData!=null)
                     {
-//                        val m =DetailMovieModel(response.body()!!.backdropPath,
-//                            response.body()!!.originalLanguage,
-//                            response.body()!!.originalTitle,
-//                            response.body()!!.posterPath,
-//                            response.body()!!.overview,
-//                            response.body()!!.productionCompanies,
-//                            response.body()!!.productionCountries,
-//                            response.body()!!.releaseDate,
-//                            response.body()!!.revenue,
-//                            response.body()!!.runtime,
-//                            response.body()!!.spokenLanguages,
-//                            response.body()!!.status,
-//                            response.body()!!.tagline,
-//                            response.body()!!.title,
-//                            response.body()!!.video,
-//                            response.body()!!.voteAverage,
-//                            response.body()!!.voteCount,
-//                        )
+
                         val m =DetailMovieModel()
                         m.originalLanguage =  response.body()!!.originalLanguage
                         m.originalTitle = response.body()!!.originalTitle
