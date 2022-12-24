@@ -18,38 +18,44 @@ import java.util.HashMap
 
 class MovieDetailViewModel : ViewModel() {
     private var movieLiveData =  MutableLiveData<List<DetailMovieModel>>()
-    fun getPopularMovies(page:Int) {
+    fun getPopularMovies(ss:String) {
         val params: MutableMap<String, String> = HashMap()
         params["api_key"] = "7916ace8a965a1c3413cd5231af30364"
        // getting the bundle back from the android
-        val idmovie = Intent().getStringExtra("idmovie").toString();
-        // getting the string back
-//        val movieid = bundle!!.getString("idmovie", "100");
 
-        RetrofitInstance.api.getDetailMovies().enqueue(object  :
+
+
+        RetrofitInstance.api.getDetailMovies(ss,params).enqueue(object  :
             Callback<DetailMovieModel> {
             override fun onResponse(call: Call<DetailMovieModel>, response: Response<DetailMovieModel>) {
                 if (response.body()!=null){
                     if(movieLiveData!=null)
                     {
-                        val m =DetailMovieModel(response.body()!!.backdropPath,
-                            response.body()!!.originalLanguage,
-                            response.body()!!.originalTitle,
-                            response.body()!!.posterPath,
-                            response.body()!!.overview,
-                            response.body()!!.productionCompanies,
-                            response.body()!!.productionCountries,
-                            response.body()!!.releaseDate,
-                            response.body()!!.revenue,
-                            response.body()!!.runtime,
-                            response.body()!!.spokenLanguages,
-                            response.body()!!.status,
-                            response.body()!!.tagline,
-                            response.body()!!.title,
-                            response.body()!!.video,
-                            response.body()!!.voteAverage,
-                            response.body()!!.voteCount,
-                        )
+//                        val m =DetailMovieModel(response.body()!!.backdropPath,
+//                            response.body()!!.originalLanguage,
+//                            response.body()!!.originalTitle,
+//                            response.body()!!.posterPath,
+//                            response.body()!!.overview,
+//                            response.body()!!.productionCompanies,
+//                            response.body()!!.productionCountries,
+//                            response.body()!!.releaseDate,
+//                            response.body()!!.revenue,
+//                            response.body()!!.runtime,
+//                            response.body()!!.spokenLanguages,
+//                            response.body()!!.status,
+//                            response.body()!!.tagline,
+//                            response.body()!!.title,
+//                            response.body()!!.video,
+//                            response.body()!!.voteAverage,
+//                            response.body()!!.voteCount,
+//                        )
+                        val m =DetailMovieModel()
+                        m.originalLanguage =  response.body()!!.originalLanguage
+                        m.originalTitle = response.body()!!.originalTitle
+                        m.posterPath = response.body()!!.posterPath
+                        m.overview = response.body()!!.overview
+                        m.backdropPath= response.body()!!.backdropPath
+                        m.status = response.body()!!.status
                         val array = ArrayList<DetailMovieModel>()
                         array.add(m)
                         movieLiveData.value=array

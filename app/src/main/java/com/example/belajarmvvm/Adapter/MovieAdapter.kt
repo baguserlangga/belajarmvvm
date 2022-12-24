@@ -1,4 +1,4 @@
-package com.example.belajarmvvm
+package com.example.belajarmvvm.Adapter
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.belajarmvvm.Model.DetailMovieModel
+import com.example.belajarmvvm.DetailMovieActivity
+import com.example.belajarmvvm.MainActivity
+import com.example.belajarmvvm.Result
 import com.example.belajarmvvm.databinding.MovieLayoutBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -31,12 +33,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.binding.movieImage.setOnClickListener{
-            val bundle =Bundle()
-            bundle.putString("idmovie", movieList[position].id.toString())
-            val intent = Intent(holder.itemView.context, DetailMovieActivity::class.java)
-            intent.putExtra("idmovie", movieList[position].id.toString())
-            intent.putExtras(bundle)
-            holder.itemView.context.startActivity(intent)
+            (holder.itemView.context as MainActivity).setFragment(2)
+            (holder.itemView.context as MainActivity).idmovie=movieList[position].id
 
         }
         Glide.with(holder.itemView)
