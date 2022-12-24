@@ -1,4 +1,6 @@
-package com.example.belajarmvvm
+package com.example.belajarmvvm.Model
+
+import com.example.belajarmvvm.Result
 
 data class Movies(
     val page: Int,

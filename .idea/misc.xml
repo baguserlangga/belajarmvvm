@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/pelajaran/android file/BelajarMVVM/app/src/main/res/drawable/ic_iconmovie.xml" value="0.1" />
+        <entry key="..\:/pelajaran/android file/BelajarMVVM/app/src/main/res/layout/activity_detail_movie.xml" value="0.4" />
         <entry key="..\:/pelajaran/android file/BelajarMVVM/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/pelajaran/android file/BelajarMVVM/app/src/main/res/layout/movie_layout.xml" value="0.1" />
+        <entry key="..\:/pelajaran/android file/BelajarMVVM/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/pelajaran/android file/BelajarMVVM/app/src/main/res/layout/movie_layout.xml" value="0.16799999999999998" />
       </map>
     </option>
   </component>

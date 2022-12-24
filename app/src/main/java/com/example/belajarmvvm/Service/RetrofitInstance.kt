@@ -1,14 +1,15 @@
-package com.example.belajarmvvm
+package com.example.belajarmvvm.Service
 
+import com.example.belajarmvvm.MoviesApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    val api : MovieApi by lazy {
+    val api : MoviesApi by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/movie/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(MovieApi::class.java)
+            .create(MoviesApi::class.java)
     }
 }
